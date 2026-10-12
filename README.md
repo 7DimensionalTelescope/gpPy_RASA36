@@ -20,6 +20,25 @@ signatures.
 python IMSNG_Routine_RASA36.py <input_folder> [ncores] [--no-stack]
 ```
 
+## Scripts
+
+| File | Purpose |
+|---|---|
+| `IMSNG_Routine_RASA36.py` | Main pipeline entry point: calibration → astrometry → stacking → photometry → subtraction → transient search for one input folder. |
+| `rasa36_watcher.py` | Watches an incoming-tar directory, extracts new tars, and launches the pipeline automatically on each extracted folder. Runs nightly reductions and same-night ToO follow-ups in separate parallel lanes so a ToO never queues behind a regular run. |
+| `rasa36_reprocess.py` | Batch/backfill tool: extracts any un-processed tars and runs the pipeline over them sequentially (one at a time). Shares the same processed-file bookkeeping as `rasa36_watcher.py` so the two never double-process a folder. |
+| `memory_watchdog.py` | Alert-only monitor that polls memory usage while the pipeline runs and posts a Slack warning before the server risks becoming unresponsive. It never kills or throttles processes. |
+| `rerun_failed.sh` | Shell helper that re-runs the pipeline sequentially over a hardcoded list of date folders (e.g. ones that previously failed at a given stage). Edit the `FOLDERS` array to change the batch. |
+| `setup_gpwatch_tmux.sh` | Shell helper that opens a tmux session with one window per observatory, each running a live resource-usage monitor for that observatory's pipeline process. |
+
+### Supporting packages
+
+- `preprocess/` — calibration-frame building and header handling (`calib.py`)
+- `phot/` — photometry and growth-curve routines
+- `util/` — shared helpers (Slack posting, logging setup, external catalog queries, robust statistics)
+- `config/` — SExtractor/SCAMP/SWarp/astrometry.net config templates, per-observatory `gphot.*.config` files, and reference catalogs
+- `table/` — static lookup tables (header-key renames, observatory locations, SED templates)
+
 ## Notes
 
 - `keys.dat` (Slack bot token) is intentionally excluded — create your own with:
