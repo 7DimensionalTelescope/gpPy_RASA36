@@ -5,11 +5,13 @@ astrometric solving, stacking, photometry, image subtraction, and transient sear
 
 ## Acknowledgment
 
-This pipeline builds on work contributed by multiple members of the IMSNG/RASA36
-collaboration over time. It is currently maintained by Youngpyo Hong, who adapted and
-extended the original gpPy pipeline for RASA36 (see `CHANGELOG_pipeline.md` for what
-changed relative to the original). If you contributed code that ended up here and would
-like to be credited by name, please open an issue or PR.
+This is a RASA36-specific fork of the original
+[gppy](https://github.com/7DimensionalTelescope/gppy) pipeline for the IMSNG/GECKO
+project, created mainly by **Gregory S.H. Paek**, with contributions from other members
+of the IMSNG/RASA36 collaboration over time. It is maintained here by Youngpyo Hong, who
+adapted and extended it for RASA36 (see `CHANGELOG_pipeline.md` for what changed relative
+to the original). If you contributed code that ended up here and would like to be
+credited by name, please open an issue or PR.
 
 ## Usage
 
